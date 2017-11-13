@@ -32,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="TuringMachine.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -43,6 +43,11 @@
         <ComponentName Value="Form1"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="turingmod.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TuringMod"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
