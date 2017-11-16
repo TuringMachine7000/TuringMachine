@@ -35,7 +35,7 @@ type TuringCommand = class
     currState : Integer;
     currSymbol : Char;
     nextSymbol : Char;
-    nexState : Integer;
+    nextState : Integer;
     orientation : Integer;//-1, (0) и 1
 
 implementation
@@ -62,11 +62,15 @@ implementation
 
     function TuringMachine.getRightCommand : TuringCommand;
     var i : Integer;
-    var s = getState();
-    var t = getTape();
-    var p = getPosition();
-    var tp = getTheProgram();
+    var s :Integer;
+    var t : String;
+    var p :Integer;
+    var tp : TList;
     begin
+         s := getState();
+         t := getTape();
+         p := getPosition();
+         tp := getTheProgram();
          result := nil;
          for i := 0 to Count(theProgram)-1 do
              if (t[p] = TuringCommand(tp[i]).currSymbol and s = TuringCommand(tp[i]).currState) then
@@ -77,7 +81,21 @@ implementation
     end;
 
     procedure TuringMachine.Step
+    var rc : TuringCommand;
     begin
+      rc := getRightCommand();
+      if (getState = 0) then
+      begin
+         if Assigned(onStop) then onStop(self);
+         exit;
+      end;
+      if (rc = nil) then
+      begin
+         if Assigned(onError) then onError(self);
+         exit;
+      end;
+      // дописать что делать, если всё хорошо
+      rc.
 
     end;
 end.

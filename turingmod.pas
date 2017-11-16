@@ -35,7 +35,7 @@ type TuringCommand = class
     currState : Integer;
     currSymbol : Char;
     nextSymbol : Char;
-    nexState : Integer;
+    nextState : Integer;
     orientation : Integer;//-1, (0) и 1
 
 implementation
@@ -81,22 +81,22 @@ implementation
     end;
 
     procedure TuringMachine.Step
-    var rc
+    var rc : TuringCommand;
     begin
-
+      rc := getRightCommand();
       if (getState = 0) then
       begin
          if Assigned(onStop) then onStop(self);
          exit;
       end;
-      if (getRightCommand() = nil then
+      if (rc = nil) then
       begin
          if Assigned(onError) then onError(self);
          exit;
       end;
-      // дописать что делать, если всё хорошо
-
-
+      tape[position] := rc.nextSymbol;
+      state := rc.nextState;
+      orientation = orientation + rc.orientation;
     end;
 end.
 
