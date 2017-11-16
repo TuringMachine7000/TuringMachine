@@ -7,7 +7,22 @@ interface
 uses
   Classes, SysUtils;
 
-type TuringMachine = class
+type TuringCommand = class
+  private
+
+  public
+    currState : Integer;
+    currSymbol : Char;
+    nextSymbol : Char;
+    nextState : Integer;
+    orientation : Integer;//-1, (0) и 1
+  end;
+
+type
+
+{ TuringMachine }
+
+ TuringMachine = class
   private
     tape : String;     //Лента
     position : Integer;//Текущая позиция курсора
@@ -24,19 +39,12 @@ type TuringMachine = class
     function getPosition : Integer;
     function getTheProgram : TList;
 
-    function addCommand (x : TuringCommand): TList;
+    procedure addCommand (x : TuringCommand);
 
+    procedure start(s:String);
     procedure Step ;
-
-type TuringCommand = class
-  private
-
-  public
-    currState : Integer;
-    currSymbol : Char;
-    nextSymbol : Char;
-    nextState : Integer;
-    orientation : Integer;//-1, (0) и 1
+    constructor Create;
+  end;
 
 implementation
 
@@ -44,8 +52,7 @@ implementation
     begin
          result := state;
     end;
-
-    function TuringMachine.getTape : Integer;
+    function TuringMachine.getTape : String;
     begin
          result := tape;
     end;
@@ -55,9 +62,21 @@ implementation
          result := position;
     end;
 
-    function TuringMachine.getTheProgram : Integer;
+    function TuringMachine.getTheProgram : TList;
     begin
          result := theProgram;
+    end;
+
+    procedure TuringMachine.addCommand(x: TuringCommand);
+    begin
+         theProgram.add(x);
+    end;
+
+    procedure TuringMachine.start(s: String);
+    begin
+      tape := s;
+      position:=1;
+      state := 1;
     end;
 
     function TuringMachine.getRightCommand : TuringCommand;
@@ -72,15 +91,15 @@ implementation
          p := getPosition();
          tp := getTheProgram();
          result := nil;
-         for i := 0 to Count(theProgram)-1 do
-             if (t[p] = TuringCommand(tp[i]).currSymbol and s = TuringCommand(tp[i]).currState) then
+         for i := 0 to theProgram.Count-1 do
+             if ((t[p] = TuringCommand(tp[i]).currSymbol) and (s = TuringCommand(tp[i]).currState)) then
                 begin
                        result := TuringCommand(tp[i]);
                        break;
                 end;
     end;
 
-    procedure TuringMachine.Step
+    procedure TuringMachine.Step;
     var rc : TuringCommand;
     begin
       rc := getRightCommand();
@@ -94,10 +113,19 @@ implementation
          if Assigned(onError) then onError(self);
          exit;
       end;
-      // дописать что делать, если всё хорошо
-      rc.
-
+      tape[position] := rc.nextSymbol;
+      state := rc.nextState;
+      position := position + rc.orientation;
     end;
+
+    procedure TuringMachine.Create;
+    begin
+      TheProgram := TList.Create;
+    end;
+
+
+
+
 end.
 
 
