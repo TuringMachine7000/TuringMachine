@@ -1,19 +1,81 @@
 object Form1: TForm1
   Left = 254
   Height = 240
-  Top = 208
-  Width = 320
+  Top = 81
+  Width = 476
   Caption = 'Form1'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 212
+  ClientWidth = 476
+  Menu = MainMenu1
+  OnCreate = FormCreate
   LCLVersion = '1.6.4.0'
-  object Button1: TButton
-    Left = 112
-    Height = 25
-    Top = 112
-    Width = 75
-    Caption = 'Button1'
-    OnClick = Button1Click
+  object Edit1: TEdit
+    Left = 0
+    Height = 32
+    Top = 180
+    Width = 476
+    Align = alBottom
+    HideSelection = False
+    OnChange = Edit1Change
     TabOrder = 0
+    Text = 'Лента'
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 25
+    Top = 0
+    Width = 476
+    Align = alTop
+    ClientHeight = 25
+    ClientWidth = 476
+    TabOrder = 1
+    object step: TButton
+      Left = 48
+      Height = 25
+      Top = 0
+      Width = 48
+      Caption = 'Шаг'
+      OnClick = stepClick
+      TabOrder = 0
+    end
+    object start: TButton
+      Left = 0
+      Height = 25
+      Top = 0
+      Width = 48
+      Caption = 'Старт'
+      OnClick = startClick
+      TabOrder = 1
+    end
+    object addcom: TButton
+      Left = 88
+      Height = 25
+      Top = 0
+      Width = 75
+      Caption = 'Добавить'
+      TabOrder = 2
+    end
+  end
+  object commands: TListBox
+    Left = 0
+    Height = 155
+    Top = 25
+    Width = 476
+    Align = alClient
+    ItemHeight = 0
+    ScrollWidth = 474
+    TabOrder = 2
+    TopIndex = -1
+  end
+  object MainMenu1: TMainMenu
+    left = 1896
+    top = 956
+    object MenuItem1: TMenuItem
+      Caption = 'Файл'
+      object MenuItem2: TMenuItem
+        Caption = 'Новый проект'
+        OnClick = MenuItem1Click
+      end
+    end
   end
 end

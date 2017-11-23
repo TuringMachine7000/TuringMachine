@@ -6,17 +6,32 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  TuringMod;
+  Menus, ExtCtrls, TuringMod;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    addcom: TButton;
+    commands: TListBox;
+    Panel1: TPanel;
+    step: TButton;
+    start: TButton;
+    Edit1: TEdit;
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    procedure startClick(Sender: TObject);
+    procedure stepClick(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure FormCreate(Sender : TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
-    { private declarations }
+    theMachine : TuringMachine;
+    procedure machineError(Sender: TObject);
+    procedure machineStart(Sender:TObject);
+    procedure machineStop(Sender: TObject);
   public
     { public declarations }
   end;
@@ -27,36 +42,65 @@ var
 implementation
 
 {$R *.lfm}
-procedure test;
-    var theMachine : TuringMachine;
-    c1 : TuringCommand;
-    i : Integer;
-    begin
-    TheMachine := TuringMachine.Create;
 
-    c1 := TuringCommand.Create;
-    c1.currState:=1;
-    c1.currSymbol:='1';
-    c1.nextState:=1;
-    c1.nextSymbol:='0';
-    c1.orientation:=1;
-    Themachine.addCommand(c1);
+procedure TForm1.stepClick(Sender: TObject);
+begin
+     theMachine.step;
+     Edit1.Caption:=theMachine.getTape;
+end;
 
-    TheMachine.start('111111');
-    for i := 1 to 6 do
-    begin
-         ShowMessage('кря');
-         TheMachine.step;
-         ShowMessage(IntToStr(TheMachine.getState) + ' '+ TheMachine.getTape);
-    end;
-    end;
+procedure TForm1.startClick(Sender: TObject);
+begin
+  step.Enabled := True;
+  Edit1.ReadOnly := True;
+end;
+
+procedure TForm1.Edit1Change(Sender: TObject);
+begin
+  theMachine.setTape(Edit1.Caption);
+end;
+
+procedure TForm1.FormCreate(Sender:TObject);
+begin
+          theMachine := TuringMachine.Create();
+          theMachine.onStart := @machineStart;
+          theMachine.onStop:=@machineStop;
+          theMachine.onError:=@machineError;
+          step.Enabled := False;
+          start.Enabled := False;
+end;
+
+
+procedure TForm1.MenuItem1Click(Sender: TObject);
+begin
+     if Assigned(theMachine) then theMachine.new;
+     Edit1.Caption := theMachine.getTape;
+     step.Enabled := False;
+     Edit1.Enabled:= True;
+end;
+
+procedure TForm1.machineStart(Sender: TObject);
+begin
+     Edit1.ReadOnly := True;
+end;
+
+procedure TForm1.machineError(Sender: TObject);
+begin
+     ShowMessage('Ошибка! Команда не найдена');
+end;
+
+procedure TForm1.machineStop(Sender: TObject);
+begin
+     step.Enabled := False;
+end;
+
+
+
+
 
 { TForm1 }
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  test;
-end;
+
 
 end.
 

@@ -39,8 +39,9 @@ type
     function getPosition : Integer;
     function getTheProgram : TList;
 
+    procedure setTape (t : String);
     procedure addCommand (x : TuringCommand);
-
+    procedure new;
     procedure start(s:String);
     procedure Step ;
     constructor Create;
@@ -67,9 +68,29 @@ implementation
          result := theProgram;
     end;
 
-    procedure TuringMachine.addCommand(x: TuringCommand);
+    procedure TuringMachine.setTape (t : String);
+    begin
+         tape := t;
+    end;
+
+    procedure TuringMachine.addCommand(x : TuringCommand);
     begin
          theProgram.add(x);
+    end;
+
+    procedure TuringMachine.new;
+    var c1 : TuringCommand;
+    begin
+         state := 1;
+         tape := '111111';
+         position := 1;
+         c1 := TuringCommand.Create;
+         c1.orientation:=1;
+         c1.currState:=1;
+         c1.currSymbol:='1';
+         c1.nextState:=1;
+         c1.nextSymbol:='0';
+         addCommand(c1);
     end;
 
     procedure TuringMachine.start(s: String);
@@ -110,7 +131,11 @@ implementation
       end;
       if (rc = nil) then
       begin
-         if Assigned(onError) then onError(self);
+         if (Assigned(onError) and Assigned(onStop))then
+            begin
+                 onError(self);
+                 onStop(self);
+            end;
          exit;
       end;
       tape[position] := rc.nextSymbol;
