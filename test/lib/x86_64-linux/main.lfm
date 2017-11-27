@@ -1,0 +1,37 @@
+object Form1: TForm1
+  Left = 272
+  Height = 240
+  Top = 115
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormCreate
+  LCLVersion = '1.6.4.0'
+  object ListView1: TListView
+    Left = 32
+    Height = 150
+    Top = 24
+    Width = 250
+    Columns = <    
+      item
+        Caption = 'symboll'
+        Width = 150
+      end    
+      item
+        Caption = 'state'
+        Width = 85
+      end>
+    TabOrder = 0
+    ViewStyle = vsReport
+  end
+  object Button1: TButton
+    Left = 32
+    Height = 25
+    Top = 0
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+end

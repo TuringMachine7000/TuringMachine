@@ -1,34 +1,23 @@
 object Form1: TForm1
-  Left = 254
-  Height = 240
-  Top = 159
-  Width = 476
+  Left = 0
+  Height = 1012
+  Top = 0
+  Width = 1920
   Caption = 'Form1'
-  ClientHeight = 212
-  ClientWidth = 476
+  ClientHeight = 984
+  ClientWidth = 1920
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.6.4.0'
-  object Edit1: TEdit
-    Left = 0
-    Height = 32
-    Top = 180
-    Width = 476
-    Align = alBottom
-    HideSelection = False
-    OnChange = Edit1Change
-    TabOrder = 0
-    Text = 'Лента'
-  end
   object Panel1: TPanel
     Left = 0
     Height = 25
     Top = 0
-    Width = 476
+    Width = 1920
     Align = alTop
     ClientHeight = 25
-    ClientWidth = 476
-    TabOrder = 1
+    ClientWidth = 1920
+    TabOrder = 0
     object step: TButton
       Left = 48
       Height = 25
@@ -48,33 +37,100 @@ object Form1: TForm1
       TabOrder = 1
     end
     object addcom: TButton
-      Left = 88
+      Left = 144
       Height = 25
       Top = 0
       Width = 75
       Caption = 'Добавить'
+      OnClick = addcomClick
       TabOrder = 2
     end
+    object stop: TButton
+      Left = 96
+      Height = 25
+      Top = 0
+      Width = 48
+      Caption = 'Стоп'
+      TabOrder = 3
+    end
   end
-  object commands: TListBox
+  object Panel2: TPanel
     Left = 0
-    Height = 155
+    Height = 36
+    Top = 948
+    Width = 1920
+    Align = alBottom
+    Caption = 'Panel2'
+    ClientHeight = 36
+    ClientWidth = 1920
+    TabOrder = 1
+    object StatusBar: TLabel
+      Left = 1
+      Height = 34
+      Top = 1
+      Width = 1918
+      Align = alClient
+      Caption = 'StatusBar'
+      ParentColor = False
+    end
+  end
+  object Tape: TScrollBox
+    Left = 0
+    Height = 31
     Top = 25
-    Width = 476
-    Align = alClient
-    ItemHeight = 0
-    ScrollWidth = 474
+    Width = 1920
+    HorzScrollBar.Page = 1
+    VertScrollBar.Page = 1
+    Align = alTop
     TabOrder = 2
-    TopIndex = -1
+  end
+  object ListView1: TListView
+    Left = 0
+    Height = 892
+    Top = 56
+    Width = 1920
+    Align = alClient
+    Columns = <    
+      item
+        Caption = 'текущий символ'
+        Width = 150
+      end    
+      item
+        Caption = 'текущее состояние'
+        Width = 150
+      end    
+      item
+        Caption = 'следущее состояние'
+      end    
+      item
+        Caption = 'следущий символ'
+      end    
+      item
+        Caption = 'направление'
+        Width = 1505
+      end>
+    TabOrder = 3
+    ViewStyle = vsReport
   end
   object MainMenu1: TMainMenu
     left = 1896
     top = 956
-    object MenuItem1: TMenuItem
+    object FileMenu: TMenuItem
       Caption = 'Файл'
-      object MenuItem2: TMenuItem
+      object NewProject: TMenuItem
         Caption = 'Новый проект'
-        OnClick = MenuItem1Click
+      end
+      object Save: TMenuItem
+        Caption = 'Сохранить'
+        OnClick = SaveClick
+      end
+      object SaveAs: TMenuItem
+        Caption = 'Сохранить как'
+        OnClick = SaveAsClick
+      end
+      object Open: TMenuItem
+        Caption = 'Открыть'
+        OnClick = OpenClick
       end
     end
   end
