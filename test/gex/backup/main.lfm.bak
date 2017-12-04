@@ -1,0 +1,19 @@
+object Form1: TForm1
+  Left = 912
+  Height = 275
+  Top = 333
+  Width = 398
+  Caption = 'Form1'
+  ClientHeight = 275
+  ClientWidth = 398
+  OnCreate = FormCreate
+  LCLVersion = '1.6.4.0'
+  object PB: TPaintBox
+    Left = 0
+    Height = 275
+    Top = 0
+    Width = 398
+    Align = alClient
+    OnPaint = PBPaint
+  end
+end

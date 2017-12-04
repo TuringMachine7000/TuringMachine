@@ -1,0 +1,31 @@
+object Form1: TForm1
+  Left = 1087
+  Height = 240
+  Top = 98
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormCreate
+  LCLVersion = '1.6.4.0'
+  object ListView1: TListView
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    Columns = <    
+      item
+        Alignment = taCenter
+        Caption = '0'
+      end    
+      item
+        Alignment = taCenter
+        AutoSize = True
+        Caption = '1'
+        Width = 255
+      end>
+    TabOrder = 0
+    ViewStyle = vsReport
+  end
+end
