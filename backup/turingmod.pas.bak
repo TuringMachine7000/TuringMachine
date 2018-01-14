@@ -7,6 +7,8 @@ interface
 uses
   Classes, SysUtils;
 
+
+
 type TuringCommand = class
   private
 
@@ -33,6 +35,7 @@ type
     onStep : TNotifyEvent;
     onStop : TNotifyEvent;
     onError : TNotifyEvent;
+    last : Integer;
     function getRightCommand : TuringCommand;
     function getState: Integer;
     function getTape: String;
@@ -40,14 +43,17 @@ type
     function getTheProgram : TList;
 
     procedure setTape (t : String);
+    procedure setPosition (p : Integer);
     procedure addCommand (x : TuringCommand);
-    procedure new;
     procedure start(s:String);
     procedure Step ;
+    procedure clearprogram;
     constructor Create;
+
   end;
 
 implementation
+
 
     function TuringMachine.getState : Integer;
     begin
@@ -68,29 +74,21 @@ implementation
          result := theProgram;
     end;
 
+
+
     procedure TuringMachine.setTape (t : String);
     begin
          tape := t;
     end;
 
+    procedure TuringMachine.setPosition(p: Integer);
+    begin
+      position := p;
+    end;
+
     procedure TuringMachine.addCommand(x : TuringCommand);
     begin
          theProgram.add(x);
-    end;
-
-    procedure TuringMachine.new;
-    var c1 : TuringCommand;
-    begin
-         state := 1;
-         tape := '111111';
-         position := 1;
-         c1 := TuringCommand.Create;
-         c1.orientation:=1;
-         c1.currState:=1;
-         c1.currSymbol:='1';
-         c1.nextState:=1;
-         c1.nextSymbol:='0';
-         addCommand(c1);
     end;
 
     procedure TuringMachine.start(s: String);
@@ -131,17 +129,33 @@ implementation
       end;
       if (rc = nil) then
       begin
-         if Assigned(onError) then onError(self);
+         if (Assigned(onError)) then
+            begin
+                 onError(self);
+            end;
          exit;
       end;
+      if (tape[position] = '#')  then setTape(tape + '#');
       tape[position] := rc.nextSymbol;
       state := rc.nextState;
+
+      last := position;
       position := position + rc.orientation;
+
     end;
+
+    procedure TuringMachine.clearprogram;
+    begin
+      theProgram.Clear;
+    end;
+
 
     constructor TuringMachine.Create;
     begin
       TheProgram := TList.Create;
+      state := 1;
+      position := 1;
+      last := 0;
     end;
 
 
